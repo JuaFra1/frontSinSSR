@@ -1,0 +1,22 @@
+<div class="max-w-sm bg-CheeseColorTerciary border border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer transform hover:scale-105">
+    <!-- Imagen de la propiedad con efecto de zoom al hover -->
+    <div class="relative overflow-hidden">
+      <img [src]="imagenUrl" alt="Imagen de la propiedad" class="w-full h-56 object-cover transform transition-transform duration-300 hover:scale-105">
+    </div>
+    
+    <!-- Contenido de la tarjeta -->
+    <div class="p-5">
+      <!-- Nombre de la propiedad -->
+      <h3 class="text-xl font-semibold text-Letra1 truncate">{{ nombre }}</h3>
+      
+      <!-- Descripción corta de la propiedad -->
+      <p class="text-Letra2 mt-2 text-sm leading-relaxed">{{ descripcion }}</p>
+      
+      <div>
+        <button (click)="verSolicitudes()" class="bg-Letra1 rounded-full w-full p-1 mt-3 text-white hover:bg-CheeseColorSecondary transition duration-300">Solicitudes</button>
+        <button (click)="ajustarPropiedad()" class="bg-Letra1 rounded-full w-full p-1 mt-3 text-white hover:bg-CheeseColorSecondary transition duration-300">Ajustar Propiedad</button>
+
+      </div>
+      
+    </div>
+  </div>

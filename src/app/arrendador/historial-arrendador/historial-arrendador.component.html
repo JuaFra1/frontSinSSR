@@ -1,0 +1,47 @@
+<div class="flex">
+    <!-- Sección de listado de propiedades -->
+    <div class="flex-1 overflow-y-auto h-screen p-4">
+        <!-- Título principal -->
+        <h2 class="text-Encabezados text-2xl font-bold mb-4"> Historial de solicitudes aceptadas </h2>
+
+        <!-- Listado de propiedades -->
+        <div class="space-y-8">
+            <div *ngFor="let propiedad of propiedades" class="bg-gray-100 rounded-lg shadow-lg p-6">
+                <!-- Nombre de la propiedad -->
+                <h3 class="text-xl font-semibold text-gray-800 border-b-2 pb-2 mb-4">
+                    <span class="text-gray-600 font-bold">Nombre de la propiedad: </span> 
+                    <span class="text-red-600">{{ propiedad.nombre }}</span>
+                </h3>
+
+                <!-- Solicitudes aceptadas -->
+                <div *ngIf="propiedad.id !== undefined" class="space-y-4">
+                    <div *ngFor="let solicitud of solicitudesAceptadas[propiedad.id]" class="bg-white p-4 rounded-lg shadow-md">
+                        <!-- Información del arrendatario -->
+                        <p class="text-sm text-gray-700">
+                            <b class="text-gray-800">Nombre del arrendatario:</b> {{ nombreArrendatarios[solicitud.id!] }} <br>
+                            <span class="text-gray-600">{{ solicitud.fechaLlegada }} - {{ solicitud.fechaPartida }}</span>
+                        </p>
+
+                        <!-- Botón de calificación -->
+                        <div class="mt-4">
+                            <button 
+                                *ngIf="solicitud.id !== undefined" 
+                                (click)="calificar(idArrendador, 1)" 
+                                class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition duration-300">
+                                Calificar Arrendatario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para volver -->
+        <div class="mt-12 text-center">
+            <button
+                class="bg-gray-600 text-white font-bold px-8 py-3 rounded-full hover:bg-gray-700 transition duration-300"
+                (click)="volver()">Volver
+            </button>
+        </div>
+    </div>
+</div>

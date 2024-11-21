@@ -1,0 +1,25 @@
+
+
+<!-- Título de Arrendamientos Programados -->
+<h1 class="text-3xl font-bold mt-12 mb-8">Arrendamientos Programados</h1>
+
+<div class="flex">
+    <!-- Sección de listado de propiedades (Arrendamientos Programados) -->
+    <div class="flex-1 overflow-y-auto h-screen p-4">
+        <h2 class="text-2xl font-bold mb-4">Propiedades</h2>
+        <div class="space-y-4">
+            <div *ngFor="let propiedad of propiedades">
+                <b>Nombre de la propiedad:</b> {{propiedad.nombre}} <br>
+                <b>Fecha de llegada:</b> {{fechaLlegada}} <br>
+                <b>Fecha de partida:</b> {{fechaPartida}} <br>
+                <b>Arrendatario: </b> {{nombreArrendador}} <br>  
+                <div>
+                    <button (click)="eliminarSolicitud(solicitudId)" class="bg-Letra1 rounded-full w-full p-1 mt-3 text-white hover:bg-CheeseColorSecondary transition duration-300">Eliminar Solicitud</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+

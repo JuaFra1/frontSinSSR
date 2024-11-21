@@ -1,0 +1,109 @@
+<div class="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Editar Propiedad</h2>
+    <form (ngSubmit)="modificarPropiedad()" class="grid grid-cols-2 gap-4">
+        <!-- Campos de texto en dos filas -->
+        <div class="col-span-1">
+            <label class="block text-gray-700">Nombre</label>
+            <input type="text" [(ngModel)]="nombre" name="nombre" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Ubicación</label>
+            <input type="text" [(ngModel)]="ubicacion" name="ubicacion" class="w-full px-3 py-2 border rounded-md"
+                required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Cuartos</label>
+            <input type="number" [(ngModel)]="cuartos" name="cuartos" class="w-full px-3 py-2 border rounded-md"
+                required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Camas</label>
+            <input type="number" [(ngModel)]="camas" name="camas" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Área (m²)</label>
+            <input type="number" [(ngModel)]="area" name="area" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Capacidad</label>
+            <input type="number" [(ngModel)]="capacidad" name="capacidad" class="w-full px-3 py-2 border rounded-md"
+                required />
+        </div>
+
+        <div class="col-span-1">
+            <label class="block text-gray-700">Precio por Noche</label>
+            <input type="number" [(ngModel)]="precioXnoche" name="precioXnoche"
+                class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+
+        <div class="col-span-1"></div>
+        <!-- Checkboxes en dos filas -->
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="parqueadero" name="parqueadero" class="mr-2" />
+            <label class="text-gray-700">Parqueadero</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="piscina" name="piscina" class="mr-2" />
+            <label class="text-gray-700">Piscina</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="lavanderia" name="lavanderia" class="mr-2" />
+            <label class="text-gray-700">Lavandería</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="wifi" name="wifi" class="mr-2" />
+            <label class="text-gray-700">WiFi</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="mascotas" name="mascotas" class="mr-2" />
+            <label class="text-gray-700">Mascotas</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="gimnasios" name="gimnasios" class="mr-2" />
+            <label class="text-gray-700">Gimnasio</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="zonaJuegos" name="zonaJuegos" class="mr-2" />
+            <label class="text-gray-700">Zona de Juegos</label>
+        </div>
+
+        <div class="col-span-1 flex items-center">
+            <input type="checkbox" [(ngModel)]="alimentacion" name="alimentacion" class="mr-2" />
+            <label class="text-gray-700">Alimentación</label>
+        </div>
+
+        <!-- Descripción ocupando toda la fila -->
+        <div class="col-span-2">
+            <label class="block text-gray-700">Descripción de la Propiedad</label>
+            <textarea [(ngModel)]="propiedad" name="propiedad" class="w-full px-3 py-2 border rounded-md"></textarea>
+        </div>
+
+        <!-- Botón de enviar ocupando toda la fila -->
+        <div class="col-span-2">
+            <button type="submit" class="w-full mt-2 mb-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Modificar
+                Propiedad</button>
+        </div>
+        
+    </form>
+    <div class="col-span-2">
+        <button class="w-full mt-2 mb-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" (click)="eliminarPropiedad()">
+            Eliminar propiedad
+        </button>
+    </div>
+    <div>
+        <button class="w-full mt-2 mb-1 bg-gray-600 text-white font-bold px-4 py-2 rounded-md hover:bg-gray-700 transition duration-300 " (click)="volver()">
+            Volver
+        </button>
+    </div>  
+</div>

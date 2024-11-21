@@ -1,0 +1,12 @@
+<div class="flex w-full">
+  <!-- Sección de listado de propiedades -->
+  <div *ngIf="!verDetalle" class="flex-1 overflow-y-auto h-screen p-4 mt-16">
+    <h2 class="text-Encabezados text-2xl font-bold mb-4">Propiedades Disponibles</h2>
+    <h3 class="text-Encabezados2 text-xl mb-4">Navega y encuentra el lugar ideal para ti</h3>
+    <app-lista-propiedades-arrendatario></app-lista-propiedades-arrendatario>
+  </div>
+
+  
+  <app-detalles-propiedad-arrendatario *ngIf="verDetalle"></app-detalles-propiedad-arrendatario>
+  
+</div>

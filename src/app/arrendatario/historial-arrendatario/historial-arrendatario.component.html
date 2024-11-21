@@ -1,0 +1,51 @@
+<div class="flex">
+    <!-- Sección de listado de solicitudes -->
+    <div class="flex-1 overflow-y-auto h-screen p-4">
+        <!-- Título principal -->
+        <h2 class="text-2xl font-bold mb-4">Historial de solicitudes</h2>
+
+        <!-- Listado de solicitudes -->
+        <div class="space-y-8">
+            <div *ngFor="let solicitud of historialSolicitudes" class="bg-gray-100 rounded-lg shadow-lg p-6">
+                <!-- Nombre de la propiedad -->
+                <h3 class="text-xl font-semibold text-gray-800 border-b-2 pb-2 mb-4">
+                    <span class="text-gray-600 font-bold">Nombre de la propiedad: </span>
+                    <span class="text-red-600">{{ propiedades[solicitud.propiedadId].nombre || 'N/A' }}</span>                </h3>
+
+                <!-- Información del arrendador -->
+                <p class="text-sm text-gray-700">
+                    <b class="text-gray-800">Nombre del arrendador:</b> 
+                    {{ 
+                        solicitud.propiedadId !== undefined && propiedades[solicitud.propiedadId] !== undefined 
+                        ? nombreArrendadores[propiedades[solicitud.propiedadId].arrendadorId] || 'N/A' 
+                        : 'N/A' 
+                    }} 
+                    <br>
+                    <span class="text-gray-600">{{ solicitud.fechaLlegada | date }} - {{ solicitud.fechaPartida | date }}</span>
+                </p>
+
+                <!-- Botones de calificación -->
+                <div class="mt-4 space-x-2">
+                    <button 
+                        (click)="solicitud.id !== undefined && calificarArrendador(propiedades[solicitud.propiedadId].arrendadorId, 0)" 
+                        class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition duration-300">
+                        Calificar Arrendador
+                    </button>
+                    <button 
+                        (click)="solicitud.id !== undefined && calificarPropiedad(propiedades[solicitud.propiedadId].id, 2)" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition duration-300">
+                        Calificar Propiedad
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para volver -->
+        <div class="mt-12 text-center">
+            <button
+                class="bg-gray-600 text-white font-bold px-8 py-3 rounded-full hover:bg-gray-700 transition duration-300"
+                (click)="volver()">Volver
+            </button>
+        </div>
+    </div>
+</div>

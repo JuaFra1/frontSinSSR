@@ -1,0 +1,146 @@
+<div class="bg-white shadow-lg p-6 rounded-lg mb-6 max-w-6xl mx-auto">
+
+    <!-- Barra de búsqueda principal al estilo Airbnb -->
+    <div class="flex justify-between items-center bg-white p-4 rounded-full shadow-md space-x-4">
+
+        <!-- Lugar -->
+        <div class="w-full md:w-auto px-4 py-2 rounded-full bg-white hover:bg-gray-200 cursor-pointer transition duration-200">
+            <label class="block text-sm text-gray-500">Dónde</label>
+            <input type="text" placeholder="Explora destinos" class="bg-transparent w-full focus:outline-none text-gray-800 font-semibold placeholder-gray-500">
+        </div>
+
+        <!-- Fechas de llegada -->
+        <div class="w-full md:w-auto px-4 py-2 rounded-full bg-white hover:bg-gray-200 cursor-pointer transition duration-200">
+            <label class="block text-sm text-gray-500">Llegada</label>
+            <input type="date" class="bg-transparent w-full focus:outline-none text-gray-800 font-semibold placeholder-gray-500">
+        </div>
+
+        <!-- Fechas de salida -->
+        <div class="w-full md:w-auto px-4 py-2 rounded-full bg-white hover:bg-gray-200 cursor-pointer transition duration-200">
+            <label class="block text-sm text-gray-500">Salida</label>
+            <input type="date" class="bg-transparent w-full focus:outline-none text-gray-800 font-semibold placeholder-gray-500">
+        </div>
+
+        <!-- Quien: Dropdown de personas -->
+        <div class="relative w-full md:w-auto px-4 py-2 rounded-full bg-white hover:bg-gray-200 cursor-pointer transition duration-200">
+            <label class="block text-sm text-gray-500">¿Quién?</label>
+            <button (click)="toggleDropdown()" type="button" class="dropdown-toggle bg-transparent w-full focus:outline-none text-gray-800 font-semibold placeholder-gray-500 flex items-center space-x-2">
+                <span class="text-gray-500">¿Cuántos?</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <!-- Dropdown con cantidad de personas -->
+            <div *ngIf="isDropdownOpen" class="dropdown-menu absolute top-full mt-2 bg-white rounded-lg shadow-lg w-80 p-4 z-10">
+                <!-- Adultos -->
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-700">Adultos</span>
+                    <div class="flex items-center">
+                        <button type="button" (click)="disminuirAdultos()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-l-lg focus:outline-none">-</button>
+                        <input type="number" [value]="adultos" min="1" class="w-12 p-3 text-gray-800 border border-gray-300 text-center focus:outline-none" readonly>
+                        <button type="button" (click)="aumentarAdultos()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-r-lg focus:outline-none">+</button>
+                    </div>
+                </div>
+                <!-- Niños -->
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-700">Niños</span>
+                    <div class="flex items-center">
+                        <button type="button" (click)="disminuirNinos()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-l-lg focus:outline-none">-</button>
+                        <input type="number" [value]="ninos" min="0" class="w-12 p-3 text-gray-800 border border-gray-300 text-center focus:outline-none" readonly>
+                        <button type="button" (click)="aumentarNinos()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-r-lg focus:outline-none">+</button>
+                    </div>
+                </div>
+                <!-- Bebés -->
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-700">Bebés</span>
+                    <div class="flex items-center">
+                        <button type="button" (click)="disminuirBebes()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-l-lg focus:outline-none">-</button>
+                        <input type="number" [value]="bebes" min="0" class="w-12 p-3 text-gray-800 border border-gray-300 text-center focus:outline-none" readonly>
+                        <button type="button" (click)="aumentarBebes()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-r-lg focus:outline-none">+</button>
+                    </div>
+                </div>
+                <!-- Mascotas -->
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-700">Mascotas</span>
+                    <div class="flex items-center">
+                        <button type="button" (click)="disminuirMascotas()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-l-lg focus:outline-none">-</button>
+                        <input type="number" [value]="mascotas" min="0" class="w-12 p-3 text-gray-800 border border-gray-300 text-center focus:outline-none" readonly>
+                        <button type="button" (click)="aumentarMascotas()" class="bg-gray-200 text-gray-800 px-3 py-2 rounded-r-lg focus:outline-none">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de búsqueda -->
+        <div class="w-auto">
+            <button type="submit" (click)="aplicarFiltros()" class="bg-CheeseColorPrimary text-white font-semibold py-3 px-6 rounded-full hover:bg-CheeseColorSecondary transition duration-300 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Buscar
+            </button>
+        </div>
+    </div>
+     <!-- Opciones adicionales (comodidades y calificación) como búsqueda opcional -->
+     <div class="mt-8 rounded-3xl">
+        <details class="bg-white drop-shadow-lg p-4 cursor-pointer  transition duration-300">
+            <summary class="font-semibold text-gray-800 cursor-pointer">Opciones adicionales</summary>
+            <div class="flex flex-wrap justify-between items-center mt-4 space-y-4 md:space-y-0">
+        
+                <!-- Menú Desplegable de Comodidades -->
+                <div class="w-full md:w-1/2 px-8 py-4 bg-white overflow-auto hover:bg-gray-200 transition duration-200">
+                    <label class="block text-sm text-gray-500 mb-1 font-semibold">Comodidades</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input id="parqueadero" type="checkbox" name="comodidades" [(ngModel)]="parqueadero" value="parqueadero" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="parqueadero" class="ml-2 text-gray-800">Parqueadero</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="piscina" type="checkbox" name="comodidades" [(ngModel)]="piscina" value="piscina" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="piscina" class="ml-2 text-gray-800">Piscina</label>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input id="gimnasio" type="checkbox" name="comodidades" [(ngModel)]="gimnasio" value="gimnasio" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="gimnasio" class="ml-2 text-gray-800">Gimnasio</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="lavanderia" type="checkbox" name="comodidades" [(ngModel)]="lavanderia" value="lavanderia" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="lavanderia" class="ml-2 text-gray-800">Lavandería</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="alimentacion" type="checkbox" name="comodidades" [(ngModel)]="alimentacion" value="alimentacion" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="servicio de alimentacion" class="ml-2 text-gray-800">Wifi</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="zonaJuegos" type="checkbox" name="comodidades" [(ngModel)]="zonaJuegos" value="wifi" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="Zona de juegos" class="ml-2 text-gray-800">Wifi</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="wifi" type="checkbox" name="comodidades" [(ngModel)]="wifi" value="wifi" class="text-gray-800 bg-transparent p-2 rounded-full">
+                            <label for="wifi" class="ml-2 text-gray-800">Wifi</label>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+        
+                <!-- Calificación Promedio -->
+                <div class="w-full md:w-1/2 px-8 py-4 bg-white rounded-full overflow-y-auto hover:bg-gray-200 transition duration-200">
+                    <label class="block text-sm text-gray-500 mb-1 font-semibold">Calificación Promedio</label>
+                    <select class="text-gray-800 bg-transparent p-2 rounded-full w-full ">
+                        <option value="">Selecciona</option>
+                        <option value="1">1 estrella</option>
+                        <option value="2">2 estrellas</option>
+                        <option value="3">3 estrellas</option>
+                        <option value="4">4 estrellas</option>
+                        <option value="5">5 estrellas</option>
+                    </select>
+                </div>
+        
+            </div>
+        </details>        
+    </div>
+</div>

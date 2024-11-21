@@ -1,0 +1,30 @@
+<h2 class="text-3xl font-bold mb-4">Acceso</h2>
+
+<!-- Formulario de acceso -->
+<form #formulario="ngForm" (ngSubmit)="onSubmit($event, formulario)">
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2">Selecciona tu rol:</label>
+        <div class="flex space-x-4">
+            <label class="flex items-center">
+                <input type="radio" name="role" value="arrendador" ngModel required>
+                <span>Arrendador</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="role" value="arrendatario" ngModel required>
+                <span>Arrendatario</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <input type="text" name="usuario" placeholder="ID - Nombre de usuario" class="mb-4 p-2 border rounded w-full"
+            [(ngModel)]="username" required>
+    </div>
+
+    <div class="mb-4">
+        <input type="password" name="password" placeholder="Contraseña" class="mb-4 p-2 border rounded w-full"
+            [(ngModel)]="password" required>
+    </div>
+
+    <button type="submit" class="bg-green-600 text-white p-2 rounded w-full">Iniciar sesión</button>
+</form>

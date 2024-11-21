@@ -1,0 +1,33 @@
+<div class="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Registro de Usuario</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label class="block text-gray-700">Nombre</label>
+      <input type="text" [(ngModel)]="nombre" name="nombre" class="w-full px-3 py-2 border rounded-md" required />
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700">Usuario</label>
+      <input type="text" [(ngModel)]="usuario" name="usuario" class="w-full px-3 py-2 border rounded-md" required />
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700">Contraseña</label>
+      <input type="password" [(ngModel)]="contrasena" name="contrasena" class="w-full px-3 py-2 border rounded-md" required />
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700">Correo</label>
+      <input type="email" [(ngModel)]="correo" name="correo" class="w-full px-3 py-2 border rounded-md" required />
+    </div>
+    <div class="mb-4">
+      <span class="block text-gray-700">Tipo de usuario</span>
+      <label class="inline-flex items-center mr-4">
+        <input type="radio" [(ngModel)]="tipoUsuario" name="tipoUsuario" value="arrendador" />
+        <span class="ml-2">Arrendador</span>
+      </label>
+      <label class="inline-flex items-center">
+        <input type="radio" [(ngModel)]="tipoUsuario" name="tipoUsuario" value="arrendatario" />
+        <span class="ml-2">Arrendatario</span>
+      </label>
+    </div>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Registrarse</button>
+  </form>
+</div>

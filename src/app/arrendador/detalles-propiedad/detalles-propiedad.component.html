@@ -1,0 +1,10 @@
+<div class="flex w-full">
+    <!-- Sección de listado de propiedades -->
+    <div *ngIf="!verDetalle" class="flex-1 overflow-y-auto h-screen p-4 mt-16">
+      <h2 class="text-Encabezados text-2xl font-bold mb-4"> Solicitudes </h2>
+      
+      <app-lista-solicitudes [idPropiedad]="id"></app-lista-solicitudes>
+      
+    </div>
+  
+  </div>

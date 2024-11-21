@@ -1,0 +1,44 @@
+<!-- alquiler.component.html -->
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+      <h2 class="text-xl font-bold mb-4 text-center">¡Excelente elección!</h2>
+      <p class="text-center mb-4">Completa el siguiente formulario y agendemos tu alquiler</p>
+  
+      <!-- Formulario de alquiler -->
+      <form (ngSubmit)="onPagar()" #alquilerForm="ngForm">
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Fecha de llegada:</label>
+          <input type="date" [(ngModel)]="fechaLlegada" name="fechaLlegada" required class="w-full p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Fecha de salida:</label>
+          <input type="date" [(ngModel)]="fechaPartida" name="fechaSalida" required class="w-full p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Cantidad de personas:</label>
+          <input type="number" [(ngModel)]="cantidadPersonas" name="cantidadPersonas" min="1" required class="w-full p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-1">Método de pago:</label>
+          <select [(ngModel)]="metodoPago" name="metodoPago" required class="w-full p-2 border border-gray-300 rounded">
+            <option value="" disabled selected>Selecciona un método de pago</option>
+            <option value="tarjeta">Tarjeta de crédito</option>
+            <option value="transferencia">Transferencia bancaria</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+        
+        <!-- Botones -->
+        <div class="flex justify-between">
+          <button type="button" (click)="cerrarFormulario()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">
+            Cancelar
+          </button>
+          <button type="submit" [disabled]="!alquilerForm.form.valid" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            Pagar
+          </button>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+  

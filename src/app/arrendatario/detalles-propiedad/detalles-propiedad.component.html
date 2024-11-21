@@ -1,0 +1,91 @@
+<div class="w-full h-full p-6 mt-10 overflow-x-hidden">
+    
+    <!-- Contenedor de la propiedad -->
+    <div class="flex flex-col md:flex-row">
+        <!-- Imagen principal de la propiedad -->
+        <img [src]="propiedad.imagenes[imagenActual]" alt="Imagen de la propiedad" class="w-full md:w-1/2 h-auto object-cover rounded-l-lg">
+
+        <!-- Información de la propiedad -->
+        <div class="flex-1 ml-10">
+            <h3 class="text-Encabezados text-2xl font-bold text-center">{{ propiedadPedida?.nombre }}</h3>
+            <p class="text-gray-600 mt-5 mb-5 text-left">{{ propiedadPedida?.propiedad }}</p>
+            <p class="text-gray-600 text-left"><b>Ubicada en:</b> {{ propiedadPedida?.ubicacion }}</p>
+            <p class="text-green-600 font-bold text-left">Precio por noche: ${{ propiedadPedida?.precioXnoche }}</p>
+            <ul class="text-left">
+                <li><b>Área:</b> {{ propiedadPedida?.area }} m²</li>
+                <li><b>Capacidad:</b> {{ propiedadPedida?.capacidad }} personas</li>
+                <li><b>Camas:</b> {{ propiedadPedida?.camas }}</li>
+                <li><b>Cuartos:</b> {{ propiedadPedida?.cuartos }}</li>
+                <li><b>Mascotas permitidas:</b> {{ propiedadPedida?.mascotas ? 'Sí' : 'No' }}</li>
+            </ul>
+            <div class="mt-4">
+                <!-- Encabezado desplegable -->
+                <details class="bg-FondoCrema rounded-2xl shadow-md p-4">
+                <summary class="cursor-pointer text-blue-600 font-semibold">
+                {{ isExpanded ? 'Ocultar detalles' : 'Ver comodidades y equipamientos' }}
+                </summary>
+            
+                <!-- Lista de propiedades desplegable -->
+                <ul class="list-disc list-inside bg-FondoCrema text-gray-600 mt-2 ml-6 text-left">
+                    <li><b>Parqueadero:</b> {{ propiedadPedida?.parqueadero ? 'Sí' : 'No' }}</li>
+                    <li><b>Piscina:</b> {{ propiedadPedida?.piscina ? 'Sí' : 'No' }}</li>
+                    <li><b>Gimnacio:</b> {{ propiedadPedida?.gimnasios ? 'Sí' : 'No' }}</li>
+                    <li><b>Zona de juegos:</b> {{ propiedadPedida?.zonaJuegos ? 'Sí' : 'No' }}</li>
+                    <li><b>Zona de lavandería:</b> {{ propiedadPedida?.lavanderia ? 'Sí' : 'No' }}</li>                    <li><b>Servicio de alimentación:</b> {{ propiedadPedida?.piscina ? 'Sí' : 'No' }}</li>
+                    <li><b>Wifi:</b> {{ propiedadPedida?.wifi ? 'Sí' : 'No' }}</li>
+
+                </ul>
+                </details>
+            </div>
+
+            
+            <p class="text-gray-600 mt-2 text-left"><b>Arrendador:</b> {{ propiedad.arrendadorNombre }}</p>
+        </div>
+    </div>
+
+    <!-- Galería de imágenes adicionales con navegación -->
+    <div class="mt-6">
+        <h4 class="text-Encabezados2 text-3xl font-semibold mb-2">Imágenes de la propiedad</h4>
+        <div class="relative">
+            <img [src]="propiedad.imagenes[imagenActual]" alt="Imagen de la propiedad" class="w-full h-64 object-cover rounded-lg">
+            <!-- Botones de navegación -->
+            <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white px-2 py-1 rounded-full" (click)="anteriorImagen()">
+                ◀
+            </button>
+            <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white px-2 py-1 rounded-full" (click)="siguienteImagen()">
+                ▶
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenedor de comentarios -->
+    <div class="mt-6">
+        <p class="text-Encabezados2 text-3xl font-semibold mb-2">Comentarios y Calificaciones</p>
+        <div class="space-y-4 bg-white p-4 rounded-lg border">
+            <p class="text-gray-800 text-bold"> Calificación promedio: {{propiedadPedida?.calificacionPromedio}}</p>            
+            <div *ngFor="let comentario of propiedad.calificaciones" class="border rounded-lg p-3 bg-gray-50">
+                <p class="text-gray-800"><strong>{{ comentario.usuario }}:</strong> {{ comentario.comentario }}</p>
+                <p class="text-yellow-500">Calificación: {{ comentario.estrellas }}/5</p>
+            </div>
+            <p *ngIf="!propiedad.calificaciones.length" class="text-gray-500">Aún no hay comentarios.</p>
+        </div>
+    </div>
+
+    <!-- Botones Alquilar y Volver -->
+    <div class="flex mt-10 justify-center mb-4">
+        <button (click)="abrirFormularioAlquiler()" class="bg-blue-600 text-white font-bold px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 w-1/2 mr-2">
+        Alquilar
+        </button>
+
+        <button class="bg-gray-600 text-white font-bold px-6 py-2 rounded-full hover:bg-gray-700 transition duration-300 w-1/2 ml-2" (click)="volver()">
+            Volver
+
+        </button>
+    </div>
+
+    <div *ngIf="mostrarFormularioAlquiler && idP !== 0">
+        <app-alquiler [propiedadId]="idP" (cerrar)="cerrarFormularioAlquiler()"></app-alquiler>
+    </div>
+      
+</div>
+

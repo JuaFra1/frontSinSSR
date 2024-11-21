@@ -1,0 +1,24 @@
+<div class="flex justify-center">
+    <div class="w-full max-w-7xl p-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <app-solicitud-card *ngFor="let solicitud of solicitudes"
+                            [nombre]="solicitud.id !== undefined ? nombrePropiedades[solicitud.id] : ''"
+                            [fechaLlegada]="solicitud.fechaLlegada"
+                            [fechaPartida]="solicitud.fechaPartida"
+                            [nombreArrendatario]="solicitud.id !== undefined ? nombreArrendatarios[solicitud.id] : ''"
+                            [calificacionPromedio]="solicitud.id !== undefined ? calificacionesPromedio[solicitud.id] : 0"
+                            [cantidadPersonas]="solicitud.cantidadPersonas"
+                            [id]="solicitud.id !== undefined ? solicitud.id : 0">
+        </app-solicitud-card>
+      </div>
+
+    </div>
+
+</div>
+<div>
+
+  <div class="mt-8">
+    <button
+        class="bg-gray-600 text-white font-bold px-6 py-2 rounded-full hover:bg-gray-700 transition duration-300 w-auto"
+        (click)="volver()">Volver</button>
+</div>

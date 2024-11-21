@@ -1,0 +1,30 @@
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+    <h2 class="text-xl font-bold mb-4 text-center">Califica tu experiencia</h2>
+    <p class="text-center mb-4">Déjanos tu opinión sobre el alquiler</p>
+
+    <form (ngSubmit)="enviarCalificacion()" #calificacionForm="ngForm">
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Nota (1 a 5):</label>
+        <select [(ngModel)]="nota" name="nota" required class="w-full p-2 border border-gray-300 rounded">
+          <option value="" disabled selected>Selecciona una nota</option>
+          <option *ngFor="let n of [1, 2, 3, 4, 5]" [value]="n">{{ n }}</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Comentario:</label>
+        <textarea [(ngModel)]="comentario" name="comentario" rows="4" required class="w-full p-2 border border-gray-300 rounded" placeholder="Escribe tu comentario aquí..."></textarea>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" (click)="cerrarFormulario()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">
+          Cancelar
+        </button>
+        <button type="submit" [disabled]="!calificacionForm.form.valid" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<header class="w-full bg-CheeseColorPrimary text-white z-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center py-4">
+      <!-- Logo -->
+      <div class="flex items-center space-x-4">
+
+        <a (click)="redirectToHome()" class="text-2xl font-bold cursor-pointer">CheeseRun</a>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </div>
+
+      <!-- BOTON PARA ESCONDER BARRA DE BÚSQUEDA -->
+      <div *ngIf="!verInicio" class="flex space-x-4">
+        <!-- Botón de búsqueda -->
+        <div class="relative">
+          <button (click)="mostrarBusqueda()" class="text-white hover:text-gray-400 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- BOTÓN "MI CUENTA" -->
+        <div class="relative">
+          <button (click)="toggleDropdown()" class="text-white hover:text-gray-400 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          </button>
+          <!-- Dropdown -->
+          <div *ngIf="isDropdownOpen" class="absolute right-0 mt-2 w-64 bg-FondoCrema2 rounded-md shadow-lg py-2 z-20">
+            <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+              <ng-container *ngIf="rolArrendatario; else arrendadorDropdown">
+                <app-vertical-arrendatario></app-vertical-arrendatario>
+              </ng-container>
+              <ng-template #arrendadorDropdown>
+                <app-vertical-arrendador></app-vertical-arrendador>
+              </ng-template>
+            </ng-container>
+            <ng-template #notLoggedIn>
+              <a routerLink="/login" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer">Iniciar
+                Sesión</a>
+              <a routerLink="/register"
+                class="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer">Registrarse</a>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Botón para publicar nueva propiedad (solo para arrendadores) -->
+        <button *ngIf="!rolArrendatario" (click)="irAPublicarPropiedad()"
+          class="flex items-center bg-CheeseColorPrimary border border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-CheeseColorPrimary transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-6 w-6 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          <span>Publicar Propiedad</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <!-- Barra de Búsqueda de Arrendatario -->
+  <app-barra-busqueda-arrendatario *ngIf="verBusquedaArrendatario"></app-barra-busqueda-arrendatario>
+  <app-barra-busqueda-arrendador *ngIf="verBusquedaArrendador"></app-barra-busqueda-arrendador>
+</header>

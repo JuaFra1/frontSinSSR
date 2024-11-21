@@ -1,0 +1,23 @@
+<div class="max-w-sm bg-CheeseColorTerciary border border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer transform hover:scale-105">
+
+        <!-- Contenido de la tarjeta -->
+    <div class="p-5">
+      <!-- Nombre de la propiedad -->
+      <h3 class="text-xl font-semibold text-Letra1 truncate">{{ nombre }}</h3>
+      
+      <!-- Descripción corta de la propiedad -->
+      <p class="text-Letra2 mt-2 text-sm leading-relaxed">{{ fechaLlegada}}  -  {{ fechaPartida}}</p>
+      <p class="text-Letra2 mt-2 text-sm leading-relaxed">Arrendador: {{ nombreArrendatario}}</p>
+      <p class="text-Letra2 mt-2 text-sm leading-relaxed">{{ calificacionPromedio}} estrellas</p>
+      <p class="text-Letra2 mt-2 text-sm leading-relaxed">Personas: {{ cantidadPersonas}}</p>
+
+      <div>
+        <button [disabled]="isButtonDisabled" (click)="aceptarSolicitud()" class="bg-Letra1 rounded-full w-full p-1 mt-3 text-white hover:bg-CheeseColorSecondary transition duration-300">{{ buttonText }}</button>
+      </div>
+<!-- 
+      <button class="bg-gray-600 text-white font-bold px-6 py-2 rounded-full hover:bg-gray-700 transition duration-300 w-1/2 ml-2" (click)="volver()">
+        Volver
+      </button>
+      -->
+    </div>
+  </div>
