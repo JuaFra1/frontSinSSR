@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PropiedadService } from '../../../Conexion back/services/propiedad.service';
+import { UsuarioService } from '../../../Conexion back/services/usuario.service';
+
 
 @Component({
   selector: 'app-publicar-propiedad',
@@ -11,7 +13,7 @@ import { PropiedadService } from '../../../Conexion back/services/propiedad.serv
   templateUrl: './publicar-propiedad.component.html',
   styleUrl: './publicar-propiedad.component.css'
 })
-export class PublicarPropiedadComponent {
+export class PublicarPropiedadComponent implements OnInit{
   id: number = 0;
   nombre: string = '';
   ubicacion: string = '';
@@ -23,7 +25,7 @@ export class PublicarPropiedadComponent {
   capacidad: number = 0;
   disponible: boolean = false;
   precioXnoche: number = 0;
-  arrendadorId: number = 1;
+  arrendadorId: number = 0;
   lavanderia: boolean = false;
   wifi: boolean = false;
   mascotas: boolean = false;
@@ -34,8 +36,20 @@ export class PublicarPropiedadComponent {
 
   constructor(
     private router: Router,
-    private propiedadService: PropiedadService
+    private propiedadService: PropiedadService,
+    private userService: UsuarioService
   ) { }
+
+  ngOnInit(): void {
+    this.userService.getUsuarioData().subscribe(usuario => {
+      if (!usuario) {  // Aquí verificamos si usuario es undefined o null
+        console.error('No hay usuario almacenado en sessionStorage.');
+        return;
+      } else {
+        this.arrendadorId = usuario.id;
+      }
+    });
+  }
 
   onSubmit() {
     const propiedadData = {
@@ -54,13 +68,7 @@ export class PublicarPropiedadComponent {
       wifi: this.wifi,
       mascotas: this.mascotas,
       gimnasios: this.gimnasios,
-      zonaJuegos: this.zonaJuegos,
-      alimentacion: this.alimentacion,
-      propiedad: this.propiedad,
-      calificaciones: [],
-      solicitudes: [],
-      imagenes: [],
-      status: 0 // Status inicial predeterminado
+      zonaJuegos: this.zonaJuegos
     };
 
     this.propiedadService.crearPropiedad(propiedadData).subscribe(

@@ -34,19 +34,46 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   cargarSolicitudes(idPropiedad: number): void {
-    this.solicitudService.getSolicitudesByPropiedadId(idPropiedad).subscribe((data: Solicitud[]) => {
-      this.solicitudes = data;
-      this.solicitudes.forEach(solicitud => {
-        if (solicitud && solicitud.id !== undefined) {
-          this.propiedadService.getPropiedadEspecifica(solicitud.propiedadId).subscribe(propiedad => {
-            this.nombrePropiedades[solicitud.id!] = propiedad.nombre;
-          });
-          this.arrendatarioService.getArrendatario(solicitud.arrendatarioId).subscribe(arrendatario => {
-            this.nombreArrendatarios[solicitud.id!] = arrendatario.nombre;
-            this.calificacionesPromedio[solicitud.id!] = arrendatario.calificacionPromedio;
-          });
-        }
-      });
+    console.log('cargarSolicitudes llamado con idPropiedad:', idPropiedad);
+  
+    if (idPropiedad === undefined || idPropiedad === null) {
+      console.error('idPropiedad no está definido');
+      return;
+    }
+  
+    this.solicitudService.getSolicitudesByPropiedadId(idPropiedad).subscribe({
+      next: (data: Solicitud[]) => {
+        console.log('Solicitudes obtenidas:', data);
+        this.solicitudes = data;
+        this.solicitudes.forEach(solicitud => {
+          console.log('Procesando solicitud:', solicitud);
+          if (solicitud && solicitud.id !== undefined) {
+            this.propiedadService.getPropiedadEspecifica(solicitud.propiedadId).subscribe({
+              next: propiedad => {
+                console.log('Propiedad obtenida:', propiedad);
+                this.nombrePropiedades[solicitud.id!] = propiedad.nombre;
+              },
+              error: err => {
+                console.error('Error al obtener la propiedad:', err);
+              }
+            });
+  
+            this.arrendatarioService.getArrendatario(solicitud.arrendatarioId).subscribe({
+              next: arrendatario => {
+                console.log('Arrendatario obtenido:', arrendatario);
+                this.nombreArrendatarios[solicitud.id!] = arrendatario.nombre;
+                this.calificacionesPromedio[solicitud.id!] = arrendatario.calificacionPromedio;
+              },
+              error: err => {
+                console.error('Error al obtener el arrendatario:', err);
+              }
+            });
+          }
+        });
+      },
+      error: err => {
+        console.error('Error al obtener las solicitudes:', err);
+      }
     });
   }
 

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Propiedad } from '../../Conexion back/models/propiedad.model'; // Suponiendo que tienes un modelo definido para Propiedad
 import { UsuarioService } from './usuario.service';
@@ -7,7 +7,7 @@ import { UsuarioService } from './usuario.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PropiedadService {
+export class PropiedadService{
   private apiUrl = 'http://localhost:8080/api/propiedad';  // Cambia la URL al puerto y host correcto de tu backend
   private propiedades: Propiedad[] = []; // Almacena todas las propiedades obtenidas del backend
   private propiedadesFiltradasSubject = new BehaviorSubject<Propiedad[]>([]); // Usamos BehaviorSubject para emitir cambios
@@ -22,10 +22,7 @@ export class PropiedadService {
 
   propiedadesFiltradas$ = this.propiedadesFiltradasSubject.asObservable(); // Observable para suscribirse desde el componente
 
-  constructor(private http: HttpClient, private userService: UsuarioService) {
-    
-
-  }
+  constructor(private http: HttpClient, private userService: UsuarioService) {  }
 
   private obtenerToken(): string | null {
     return this.userService.getCookie('token');
@@ -48,7 +45,7 @@ export class PropiedadService {
   editarDetalles(propiedad: Propiedad, id: number): Observable<any> {
     const url = `${this.apiUrl}/actualizarPropiedad/${id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, propiedad, { headers });
+    return this.http.put(url, propiedad, { headers: this.crearHeaders() });
   }
   
   editarPropiedad(id:number){

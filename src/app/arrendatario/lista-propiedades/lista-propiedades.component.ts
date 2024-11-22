@@ -20,7 +20,7 @@ export class ListaPropiedadesComponentArrendatario implements OnInit {
 
   ngOnInit(): void {
     // Suscribirse al BehaviorSubject de propiedades filtradas
-    this.propiedadService.propiedadesFiltradas$.subscribe((data: Propiedad[]) => {
+    this.propiedadService.getPropiedades().subscribe((data: Propiedad[]) => {
       this.propiedades = data;
     });
   }

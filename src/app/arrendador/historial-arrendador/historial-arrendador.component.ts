@@ -6,6 +6,7 @@ import { Solicitud } from '../../../Conexion back/models/solicitud.model';
 import { PropiedadService } from '../../../Conexion back/services/propiedad.service';
 import { SolicitudService } from '../../../Conexion back/services/solicitud.service';
 import { ArrendatarioService } from '../../../Conexion back/services/arrendatario.service';
+import { UsuarioService } from '../../../Conexion back/services/usuario.service';
 
 @Component({
   selector: 'app-historial-arrendador',
@@ -24,7 +25,8 @@ export class HistorialArrendadorComponent implements OnInit {
     private solicitudService: SolicitudService,
     private propiedadService: PropiedadService,
     private arrendatarioService: ArrendatarioService,
-    private router: Router
+    private router: Router,
+    private userService: UsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -57,16 +59,14 @@ export class HistorialArrendadorComponent implements OnInit {
   }
 
   getUsuarioDatos(): void {
-    // Verificar si sessionStorage está disponible
-    if (typeof sessionStorage !== 'undefined') {
-      const usuarioData = sessionStorage.getItem('usuario');
-      if (usuarioData) {
-        const usuario = JSON.parse(usuarioData);
-        if (usuario.tipoUsuario === 'arrendador') {
-          this.idArrendador = usuario.id;
-        }
+    this.userService.getUsuarioData().subscribe(usuario => {
+      if (!usuario) {  // Aquí verificamos si usuario es undefined o null
+        console.error('No hay usuario almacenado en sessionStorage.');
+        return;
+      } else {
+        this.idArrendador = usuario.id;
       }
-    }
+    });
   }
 
   calificar(id: number, tipo: number): void {

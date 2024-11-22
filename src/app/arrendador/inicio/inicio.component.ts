@@ -5,6 +5,7 @@ import { PropiedadService } from '../../../Conexion back/services/propiedad.serv
 import { VerticalComponentArrendador } from "../vertical/vertical.component";
 import { PropiedadesArrendadorComponent } from "../propiedades-arrendador/propiedades-arrendador.component";
 import { DetallesPropiedadComponentArrendador } from "../detalles-propiedad/detalles-propiedad.component";
+import { UsuarioService } from '../../../Conexion back/services/usuario.service';
 
 @Component({
   selector: 'app-inicio-arrendador',
@@ -21,29 +22,29 @@ export class InicioComponentArrendador implements OnInit {
   idArrendador: number = 0;
 
   constructor(
-    private propiedadService: PropiedadService
+    private propiedadService: PropiedadService, private userService: UsuarioService
   ) {}
 
   ngOnInit(): void {
     this.getUsuarioDatos();
-    if (this.idArrendador) {
+  if (this.idArrendador) {
       this.propiedadService.getPropiedadesArrendador(this.idArrendador).subscribe((data: Propiedad[]) => {
         this.propiedades = data;
       });
     }
+
+
   }
 
   getUsuarioDatos(): void {
-    // Verificar si sessionStorage está disponible
-    if (typeof sessionStorage !== 'undefined') {
-      const usuarioData = sessionStorage.getItem('usuario');
-      if (usuarioData) {
-        const usuario = JSON.parse(usuarioData);
-        if (usuario.tipoUsuario === 'arrendador') {
-          this.idArrendador = usuario.id;
-        }
+    this.userService.getUsuarioData().subscribe(usuario => {
+      if (!usuario) {  // Aquí verificamos si usuario es undefined o null
+        console.error('No hay usuario almacenado en sessionStorage.');
+        return;
+      } else {
+        this.idArrendador = usuario.id;
       }
-    }
+    });
   }
 
   mostrarCuenta() {
